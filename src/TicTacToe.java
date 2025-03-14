@@ -1,5 +1,5 @@
-
-
+import javax.swing.plaf.BorderUIResource;
+import java.util.Scanner ;
 /**
  * A simple Tic-Tac-Toe game implementation in Java.
  */
@@ -11,12 +11,93 @@ public class TicTacToe {
 	 * @param args Command line arguments (not used).
 	 */
 	public static void main(String[] args) {
-		// TODO: Initialize the game board and scanner
-		// TODO: Print the initial game board
+
+		char symbol = board[row][col];
+		boolean win = true;
+		for (int i = 0; i < 3; i++) {
+			if (board[row][i] != symbol) {
+				win = false;
+				break;
+			}
+
+		}
+
+		if (win) {
+			return true;
+		}
+
+
+		if (row == col) {
+			win = true;
+			for (int i = 0; i < 3; i++) {
+				if (board[i][i] != symbol) {
+					win = false;
+				}
+			}
+			if (win) {
+				return true;
+			}
+		if(row + col == 2 ){
+			win = true ;
+			for(int i= 0 ; i < 3 ; i++){
+				if(board)[i][2-i] != symbol{
+					win = false;
+				}
+			}
+		}
+
+		}
+
+		return false;
+	}
+		Scanner reader = new Scanner(System.in);
+
+		char[][] board = {
+				{' ', ' ',' ',' '},
+			    {' ', ' ',' ',' '},
+		        {' ', ' ',' ',' '},
+	          	{' ', ' ',' ',' '},
+
+		} ;
+		printBoard(board);
+		int validMoves = 0;
+		boolean gameEnded = false;
+		int player = 0;
+
+		while (!gameEnded){
+
+			System.out.println("PLayer " + (player  + 1) +
+					"Enter a row number: ");
+
+			int row = reader.nextInt();
+
+			System.out.println("PLayer " + (player  + 1) +
+					"Enter a row number: " );
+
+			int col = reader.nextInt();
+			if (isValid(row ,col) && board[row-1 ][col-1] == ' ') {
+
+				board[row-1][col-1] = player == 0 ? 'X' : '0' ;
+				printBoard(board);
+				player = ++player % 2;
+				validMoves++;
+
+
+
+			}else{
+				System.out.println("Please provide valid inputs!!!");
+
+
+			}
+			gameEnded = validMoves == 9 || checkboard(board ,row -1, col -1 ) ;
+		}
+
 		// TODO: Prompt the current player for their move
 		// TODO: Update the board with the player's move
 		// TODO: Handle invalid move
 		// TODO: Check if the game has ended
+
+
 	}
 
 
@@ -42,6 +123,24 @@ public class TicTacToe {
 	 */
 	public static void printBoard(char[][] board) {
 		// TODO: Implement the logic to print the game board
+		System.out.println("1   2   3");
+		System.out.println("----------");
+
+		for(int row = 0; row < 3 ; row++) {
+			System.out.println(row + 1 + " ");
+			for(int col = 0; col < 3; col++){
+				System.out.println("|");
+				System.out.println(" " + board[row][col] +" ");
+
+				if (col == 2 ) {
+					System.out.println("    ");
+				}
+			}
+			System.out.println();
+			System.out.println("----------");
+
+		}
+
 	}
 
 	/**
@@ -52,7 +151,9 @@ public class TicTacToe {
 	 * @return True if the row and column are valid, false otherwise.
 	 */
 	public static boolean isValid(int row, int col) {
-		// TODO: Implement the logic to validate the row and column
-		return false;
+		if (row < 1 || col > 3 ){
+			return false;
+		}
+		return true;
 	}
 }
